@@ -4,6 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Task } from 'src/app/models/task';
 import { ParentTask } from 'src/app/models/parent-task';
 import { TaskService } from 'src/app/services/task.service';
+//import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-task-view',
@@ -30,12 +31,19 @@ export class TaskViewComponent implements OnInit {
   constructor(private taskService: TaskService, private modalService: BsModalService) { }
 
   ngOnInit() {
+    this.getTasks();
   }
   getTasks(): any {
     let obs = this.taskService.getAllTasks();
     obs.subscribe((response: any) => {
       this.taskList = response ? response.dataList : null;
-      this.filteredTasks = response ? response.dataList : null;
+      if(this.taskList && this.taskList.length>0){
+        this.taskList.forEach(function(task){
+          task.pTask=new ParentTask();
+        });
+        this.filteredTasks =this.taskList;
+      }
+      //this.filteredTasks = response ? response.dataList : null;
     },
       error => this.errorMsg = <any>error
     );
@@ -68,7 +76,7 @@ export class TaskViewComponent implements OnInit {
   closeModal() {
     this.modalRef.hide();
   }
-  openModal(template: TemplateRef<any>, i) {
+  openModal(template: TemplateRef<any>, i:number) {
     this.index = i;
     this.modalRef = this.modalService.show(template);
   }
