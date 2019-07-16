@@ -22,11 +22,82 @@ export class TaskViewComponent implements OnInit {
 
   parentTasks: ParentTask[];
   filteredParentTasks: ParentTask[];
-  
+
+  taskSearchVal:string;
+  ptaskSearchVal:string;
+  startDtSearchVal:string;
+  endDtSearchVal:string;
+  priorityFSearchVal:number;
+  priorityTSearchVal:number;
   
   private _parentTaskSearchValue: string = "";
   
-
+  filterTask(event:any){
+    if(!this.taskSearchVal || this.taskSearchVal.trim().length==0){
+      this.filteredTasks=this.taskList;
+    }else{
+        this.filteredTasks= this.filteredTasks.filter(task=>{
+          if(task.task.startsWith(this.taskSearchVal)){
+            return true;
+          }
+        });
+      }
+  }
+  filterPTask(event:any){
+    if(!this.ptaskSearchVal || this.ptaskSearchVal.trim().length==0){
+      this.filteredTasks=this.taskList;
+    }else{
+      this.filteredTasks= this.filteredTasks.filter(task=>{
+        if(task.pTask.parentTaskName && task.pTask.parentTaskName.startsWith(this.ptaskSearchVal)){
+          return true;
+        }
+      });
+     }
+  }
+  filterStDtTask(event:any){
+    if(!this.startDtSearchVal || this.startDtSearchVal.trim().length==0){
+      this.filteredTasks=this.taskList;
+    }else{
+      this.filteredTasks= this.filteredTasks.filter(task=>{
+        if(task.startDate && task.startDate.startsWith(this.startDtSearchVal)){
+          return true;
+        }
+      });
+    }
+  }
+  filterEndDtTask(event:any){
+    if(!this.endDtSearchVal || this.endDtSearchVal.trim().length==0){
+      this.filteredTasks=this.taskList;
+    }else{
+      this.filteredTasks= this.filteredTasks.filter(task=>{
+        if(task.endDate && task.endDate.startsWith(this.endDtSearchVal)){
+          return true;
+        }
+      });
+    }
+  }
+  filterPriorityFTask(event:any){
+    if(!this.priorityFSearchVal || this.priorityFSearchVal==0 || this.priorityFSearchVal.toString().trim().length==0){
+      this.filteredTasks=this.taskList;
+    }else{
+      this.filteredTasks= this.filteredTasks.filter(task=>{
+        if(task.priority && (task.priority>=this.priorityFSearchVal )){
+          return true;
+        }
+      });
+    }
+  }
+  filterPriorityTTask(event:any){
+    if(!this.priorityTSearchVal || this.priorityTSearchVal==0 || this.priorityTSearchVal.toString().trim().length==0){
+      this.filteredTasks=this.taskList;
+    }else{
+      this.filteredTasks= this.filteredTasks.filter(task=>{
+        if(task.priority && (task.priority<=this.priorityTSearchVal)){
+          return true;
+        }
+      });
+    }
+  }
   errorMsg: String;
   constructor(private taskService: TaskService, private modalService: BsModalService) { }
 
@@ -48,6 +119,13 @@ export class TaskViewComponent implements OnInit {
       error => this.errorMsg = <any>error
     );
   }
+  deleteTask(i:number){
+    let res=this.taskService.removeTask(this.filteredTasks[i]);
+    res.subscribe((response:any)=>{
+      this.getTasks();
+    },error => this.errorMsg=<any>error
+    );
+  }
 
   getParentTasks(): any {
     let obs = this.taskService.getAllParentTasks();
@@ -59,7 +137,7 @@ export class TaskViewComponent implements OnInit {
     );
   }
 
-  saveTask(i): void {
+  saveTask(i:number): void {
     this.taskService.saveTask(this.filteredTasks[i]).subscribe((response: any) => {
       this.closeModal();
     },
@@ -81,19 +159,9 @@ export class TaskViewComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  set parentTaskSearchValue(value: string) {
-    this._parentTaskSearchValue = value;
-    this.filteredParentTasks = this.parentTaskSearchValue ? this.performParentTaskFilter(this.parentTaskSearchValue) : this.parentTasks;
-  }
+  
 
-  get parentTaskSearchValue(): string {
-    return this._parentTaskSearchValue;
-  }
-
-  performParentTaskFilter(filterValue: string): ParentTask[] {
-    filterValue = filterValue.toLocaleLowerCase();
-    return this.parentTasks.filter((parentTask: ParentTask) => parentTask.parentTaskName.toLocaleLowerCase().indexOf(filterValue) !== -1);
-  }
+  
 
   openParentTaskModal(template: TemplateRef<any>): void {
     this.getParentTasks();

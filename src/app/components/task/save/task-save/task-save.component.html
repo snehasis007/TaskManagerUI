@@ -1,76 +1,71 @@
-<form class="needs-validation" novalidate>
+<div class="container">
+    <form class="needs-validation" novalidate>
 
 
 
-    <div class="form-group row required" style="margin-left:.1%">
-        <div class="col-md-1">
-            <label for="task" class="col-sm-4 col-form-label col-form-label-lg">Task:</label>
+        <div class="form-group  required">
+
+            <label for="task">Task:</label>
+
+            <input type="text" name="task" class="form-control" id="taskid" [(ngModel)]="task.task">
+
         </div>
-        <div class="col-md-5">
-            <input type="text" name="task" class="form-control" id="taskid" [(ngModel)]="task.task" style="margin-left: 2%">
-        </div>
-    </div>
 
 
 
-    <div class="form-group row" style="margin-left:.1%">
-        <div class="col-md-1">
-            <label for="priority" class="col-sm-2 col-form-label col-form-label-lg">Priority:</label>
-        </div>
-        <div class="col-md-5" style="margin-left: 1%">
-            <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
-            <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">30</span>
+        <div class="form-group ">
+
+            <label for="priority">Priority:</label>
+
+            <span>0</span>
+            <span>30</span>
             <input type="range" (click)="onDrag($event)" name="priority" min="0" max="30" class="custom-range" [(ngModel)]="task.priority">
-            <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">{{task.priority}}</span>
-        </div>
-    </div>
+            <span>{{task.priority}}</span>
 
-    <div class="form-group row required" style="margin-left:.1%">
-        <div class="col-md-1">
-            <label for="parentTask" class="col-sm-2 col-form-label col-form-label-lg" style="white-space:nowrap">Parent
+        </div>
+
+        <div class="form-group  required">
+
+            <label for="parentTask">Parent
           Task:</label>
-        </div>
-        <div class="col-md-4" style="margin-left:1%">
-            <input type="text" class="form-control" id="parentTask" name="parentTask" [(ngModel)]="task.pTask.parentTaskName" readonly>
-        </div>
-        <div class="col-md-2">
-            <button type="button" id="search" class="button buttonSearch" (click)="openParentTaskModal(template1)">Serach</button>
-        </div>
-    </div>
 
-    <div class="form-group row required" style="margin-left:.1%">
-        <div class="col-md-1">
-            <label for="startDate" class="col-sm-2 col-form-label col-form-label-lg" style="white-space:nowrap">Start
-          Date:</label>
+
+            <input type="text" class="form-control" id="parentTask" name="parentTask" [(ngModel)]="task.pTask.parentTaskName">
+
+
+
         </div>
-        <div class="col-md-2" style="margin-left:1%">
+
+        <div class="form-group  required">
+
+            <label for="startDate">Start
+          Date:</label>
+
             <input type="text" name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [(ngModel)]="task.startDate">
+
         </div>
-        <div class="col-md-1">
-            <label for="endDate" class="col-sm-2 col-form-label col-form-label-lg" style="white-space:nowrap">End
+        <div class="form-group  required">
+            <label for="endDate">End
           Date:</label>
-        </div>
-        <div class="col-md-2">
+
             <input type="text" name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [(ngModel)]="task.endDate">
-        </div>
-    </div>
 
-
-
-    <div class="form-group row" style="margin-left:1%">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-2" style="padding-left: 10%">
-            <button type="button" id="add" class="btn btn-secondary btn-sm" [disabled]="!(task.task && task.startDate && task.endDate   && validateDate())" (click)="saveOrUpdateTask()">Add Task</button>
-        </div>
-        <div class="col-md-3">
-            <button type="button" id="reset" class="btn btn-secondary btn-sm" style="margin:10px" (click)="reset()" style="padding-top:0%;width:25%">Reset</button>
         </div>
 
-    </div>
 
-</form>
 
+        <div class="form-group ">
+
+
+            <button type="button" id="add" class="btn btn-primary" [disabled]="!(task.task && task.startDate && task.endDate   && validateDate())" (click)="saveOrUpdateTask()">Add Task</button>
+
+            <button type="button" id="reset" class="btn btn-primary" (click)="reset()">Reset</button>
+
+
+        </div>
+
+    </form>
+</div>
 
 
 <ng-template #template1>
@@ -101,10 +96,10 @@
                         <input type="text" name="parentTaskName" class="form-control" id="parentTaskName" disabled="true" value="{{parentTask.parentTaskName}}" style="margin-left:20%">
                     </div>
                     <div class="col-md-3">
-                        <input type="text" name="parentId" class="form-control" id="parentId" disabled="true" value="{{parentTask.id}}" style="margin-left:20%">
+                        <input type="text" name="parentId" class="form-control" id="parentId" disabled="true" value="{{parentTask.id}}">
                     </div>
                     <div class="col-md-3" style="padding:1%">
-                        <button type="button" id="select" class="btn btn-secondary btn-sm" (click)="selectParentTask(i)" style="margin-left:20%">Select</button>
+                        <button type="button" id="select" class="btn btn-primary" (click)="selectParentTask(i)">Select</button>
                     </div>
                 </div>
             </div>
