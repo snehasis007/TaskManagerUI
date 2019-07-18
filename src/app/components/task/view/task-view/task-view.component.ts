@@ -110,7 +110,9 @@ export class TaskViewComponent implements OnInit {
       this.taskList = response ? response.dataList : null;
       if(this.taskList && this.taskList.length>0){
         this.taskList.forEach(function(task){
-          task.pTask=new ParentTask();
+          if(!task.pTask){
+           task.pTask=new ParentTask();
+          }
         });
         this.filteredTasks =this.taskList;
       }

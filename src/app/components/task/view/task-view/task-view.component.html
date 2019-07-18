@@ -71,59 +71,56 @@
     </div>
     <div class="modal-body">
         <form class="needs-validation" #addForm novalidate>
-            <div class="form-group row required" style="margin-left:1.5%">
-                <label for="taskName2" class="col-sm-2 col-form-label">Task:</label>
-                <div class="col-md-6">
-                    <input type="text" name="taskName2" class="form-control" id="taskName2" [(ngModel)]="filteredTasks[index].task">
-                </div>
+            <div class="form-group  required">
+                <label for="taskName2">Task:  </label>
+
+                <input type="text" name="taskName2" class="form-control" id="taskName2" [(ngModel)]="filteredTasks[index].task">
+
             </div>
 
-            <div class="form-group row" style="margin-left:1.5%">
-                <label for="priority2" class="col-sm-2 col-form-label">Priority:</label>
-                <div class="col-md-6">
-                    <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
-                    <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">30</span>
-                    <input type="range" (click)="onKey($event,index)" name="priority2" min="0" max="30" class="custom-range" style="margin-left:2%" [(ngModel)]="filteredTasks[index].priority">
-                    <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">{{filteredTasks[index].priority}}</span>
-                </div>
+            <div class="form-group ">
+                <label for="priority2">Priority:  </label>
+
+                <span> 0 - </span>
+                <span>30</span>
+                <input type="range" (click)="onKey($event,index)" name="priority2" min="0" max="30" class="custom-range" [(ngModel)]="filteredTasks[index].priority">
+                <span>{{filteredTasks[index].priority}}</span>
+
             </div>
 
-            <div class="form-group row required" style="margin-left:1.3%">
-                <label for="parentTask2" class="col-sm-2 col-form-label" style="white-space:nowrap">Parent Task:</label>
-                <div class="col-md-6">
-                    <input type="text" name="parentTask2" class="form-control" id="parentTask2" style="margin-left:2%" [(ngModel)]="filteredTasks[index].pTask.parentTaskName">
-                </div>
-                <div class="col-md-2">
-                    <button type="button" id="search" class="button buttonSearch" (click)="openParentTaskModal(template2)">Serach</button>
-                </div>
+            <div class="form-group required">
+                <label for="parentTask2">Parent Task:  </label>
+
+                <input type="text" name="parentTask2" class="form-control" id="parentTask2" [(ngModel)]="filteredTasks[index].pTask.parentTaskName">
+
             </div>
 
-            <div class="form-group required row" style="margin-left:1.5%">
-                <label for="startDate2" class="col-sm-2 col-form-label" style="white-space:nowrap">Start Date:</label>
+            <div class="form-group required ">
+                <label for="startDate2">Start Date: </label>
 
-                <div class="col-xs-12 col-md-5 col-lg-4 form-group">
-                    <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="startDate2" style="margin-left:2%" id="startDate2" [(ngModel)]="filteredTasks[index].startDate">
-                </div>
+
+                <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="startDate2" id="startDate2" [(ngModel)]="filteredTasks[index].startDate">
+
 
 
 
             </div>
 
-            <div class="form-group required row" style="margin-left:1.5%">
-                <label for="endDate2" class="col-sm-2 col-form-label" style="white-space:nowrap">End Date:</label>
+            <div class="form-group required ">
+                <label for="endDate2">End Date: </label>
 
 
-                <div class="col-xs-12 col-md-5 col-lg-4 form-group">
-                    <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="endDate2" id="endDate2" style="margin-left:2%" [(ngModel)]="filteredTasks[index].endDate">
-                </div>
+
+                <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="endDate2" id="endDate2" [(ngModel)]="filteredTasks[index].endDate">
+
 
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-4"></div>
-                <button type="button" class="btn btn-secondary btn-sm" style="margin:10px" [disabled]="!(filteredTasks[index].task &&  filteredTasks[index].startDate && filteredTasks[index].endDate && validateDate(index))" (click)="saveTask(index)">Update</button>
-                <button type="button" class="btn btn-secondary btn-sm" style="margin:10px" (click)="closeModal()">Close</button>
-                <div class="col-sm-2"></div>
+            <div class="form-group ">
+
+                <button type="button" class="btn btn-primary" [disabled]="!(filteredTasks[index].task &&  filteredTasks[index].startDate && filteredTasks[index].endDate && validateDate(index))" (click)="saveTask(index)">Update</button>
+                <button type="button" class="btn btn-primary" (click)="closeModal() ">Close</button>
+
             </div>
 
         </form>

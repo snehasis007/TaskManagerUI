@@ -5,7 +5,7 @@
 
         <div class="form-group  required">
 
-            <label for="task">Task:</label>
+            <label for="task">Task: </label>
 
             <input type="text" name="task" class="form-control" id="taskid" [(ngModel)]="task.task">
 
@@ -15,9 +15,9 @@
 
         <div class="form-group ">
 
-            <label for="priority">Priority:</label>
+            <label for="priority">Priority: </label>
 
-            <span>0</span>
+            <span> 0 - </span>
             <span>30</span>
             <input type="range" (click)="onDrag($event)" name="priority" min="0" max="30" class="custom-range" [(ngModel)]="task.priority">
             <span>{{task.priority}}</span>
@@ -27,7 +27,7 @@
         <div class="form-group  required">
 
             <label for="parentTask">Parent
-          Task:</label>
+          Task: </label>
 
 
             <input type="text" class="form-control" id="parentTask" name="parentTask" [(ngModel)]="task.pTask.parentTaskName">
@@ -39,14 +39,14 @@
         <div class="form-group  required">
 
             <label for="startDate">Start
-          Date:</label>
+          Date: </label>
 
             <input type="text" name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [(ngModel)]="task.startDate">
 
         </div>
         <div class="form-group  required">
             <label for="endDate">End
-          Date:</label>
+          Date: </label>
 
             <input type="text" name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [(ngModel)]="task.endDate">
 
@@ -66,44 +66,3 @@
 
     </form>
 </div>
-
-
-<ng-template #template1>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Parent Task</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="closeParentTaskModal()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body" style="width:500px;height:500px">
-        <div class="row">
-            <div class="col-md-2">
-                <label for="Search" class="col-form-label-lg" style="margin-left: 25%">Search</label>
-            </div>
-            <div class="col-md-6">
-                <input type="text" name="parentTaskSearchValue" class="form-control" [(ngModel)]="parentTaskSearchValue">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <label for="parentTaskName" class="col-sm-3 col-form-label col-form-label-lg" style="white-space:nowrap">Parent Task</label>
-            </div>
-
-
-            <div *ngFor="let parentTask of filteredParentTasks;let i = index">
-                <div class="row" id="{{i}}">
-                    <div class="col-md-4">
-                        <input type="text" name="parentTaskName" class="form-control" id="parentTaskName" disabled="true" value="{{parentTask.parentTaskName}}" style="margin-left:20%">
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" name="parentId" class="form-control" id="parentId" disabled="true" value="{{parentTask.id}}">
-                    </div>
-                    <div class="col-md-3" style="padding:1%">
-                        <button type="button" id="select" class="btn btn-primary" (click)="selectParentTask(i)">Select</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</ng-template>

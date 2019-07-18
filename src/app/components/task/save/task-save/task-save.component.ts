@@ -27,17 +27,7 @@ export class TaskSaveComponent implements OnInit {
   errorMsg: String;
 
   
-  private _parentTaskSearchValue: string = "";
-  
-
-  set parentTaskSearchValue(value: string) {
-    this._parentTaskSearchValue = value;
-    this.filteredParentTasks = this.parentTaskSearchValue ? this.performParentTaskFilter(this.parentTaskSearchValue) : this.parentTasks;
-  }
-
-  get parentTaskSearchValue(): string {
-    return this._parentTaskSearchValue;
-  }
+    
 
   constructor(private modalService: BsModalService, private taskService: TaskService) { 
     this.task = new Task();
@@ -66,28 +56,8 @@ export class TaskSaveComponent implements OnInit {
       error => this.errorMsg = <any>error
     );
   }
-  performParentTaskFilter(filterValue: string): ParentTask[] {
-    filterValue = filterValue.toLocaleLowerCase();
-    return this.parentTasks.filter((parentTask: ParentTask) => parentTask.parentTaskName.toLocaleLowerCase().indexOf(filterValue) !== -1);
-  }
-  openParentTaskModal(template: TemplateRef<any>): void {
-    this.getParentTasks();
-    this.parentTaskModalRef = this.modalService.show(template);
-  }
-  selectParentTask(i: number): void {
-    this.task.pTask = this.filteredParentTasks[i];
-    this.closeParentTaskModal();
-  }
-  closeParentTaskModal(): void {
-    this.parentTaskModalRef.hide();
-  }
-  // onChecboxSelect(event: any): void {
-  //   this.task.pTask.parentTaskDisabled = false;
-  //   if (!event.target.checked) {
-  //     this.task.parentTask.parentTaskDisabled = true;
-  //     this.task.parentTask.parentTaskName = "";
-  //   }
-  // }
+  
+  
   onDrag(event: any): void {
     this.task.priority = event.target.value;
   }
